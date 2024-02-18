@@ -1,3 +1,14 @@
+<script setup>
+import { inject } from 'vue'
+defineProps({
+  totalPrice: Number
+})
+const { toggleDrawer } = inject('cart')
+
+const openDrawer = () => {
+  toggleDrawer()
+}
+</script>
 <template>
   <header class="flex justify-between items-center border-b border-slate-200 px-10 py-8">
     <div class="flex items-center gap-4">
@@ -9,9 +20,12 @@
     </div>
 
     <ul class="flex items-center gap-10">
-      <li class="flex items-center gap-1 text-gray-500 hover:text-black cursor-pointer">
+      <li
+        @click="openDrawer"
+        class="flex items-center gap-1 text-gray-500 hover:text-black cursor-pointer"
+      >
         <img src="/cart.svg" alt="Cart" />
-        <b>1200$</b>
+        <b>{{ totalPrice }}$</b>
       </li>
       <li class="flex items-center gap-1 text-gray-500 hover:text-black cursor-pointer">
         <img src="/heart.svg" alt="Favorite" />

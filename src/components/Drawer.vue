@@ -1,6 +1,11 @@
 <script setup>
 import DrawerHead from './DrawerHead.vue'
 import CartListItem from '@/components/CartListItem.vue'
+
+defineProps({
+  totalPrice: Number,
+  delivery: Number
+})
 </script>
 
 <template>
@@ -13,13 +18,13 @@ import CartListItem from '@/components/CartListItem.vue'
       <div class="flex gap-2">
         <span>Total price:</span>
         <div class="flex-1 border-b border-dashed"></div>
-        <b>690$</b>
+        <b>{{ totalPrice }}$</b>
       </div>
 
       <div class="flex gap-2">
         <span>Delivery:</span>
         <div class="flex-1 border-b border-dashed"></div>
-        <b>20$</b>
+        <b>{{ delivery }}$</b>
       </div>
       <button
         disabled
