@@ -1,11 +1,17 @@
 <script setup>
+import { inject } from 'vue'
 import DrawerHead from './DrawerHead.vue'
 import CartListItem from '@/components/CartListItem.vue'
 
 defineProps({
   totalPrice: Number,
-  delivery: Number
+  delivery: Number,
+  isCreatingOrder: Boolean
 })
+
+const { createOrder } = inject('cart')
+
+const onClickCheckout = () => createOrder()
 </script>
 
 <template>
@@ -27,10 +33,14 @@ defineProps({
         <b>{{ delivery }}$</b>
       </div>
       <button
-        disabled
+        @click="onClickCheckout"
+        :disabled="totalPrice === 0"
+        :class="{
+          'cursor-not-allowed bg-slate-400 hover:bg-slate-400 active:bg-slate-400': isCreatingOrder
+        }"
         class="mt-3 cursor-pointer disabled:bg-slate-300 w-full bg-lime-500 text-white font-bold uppercase hover:bg-lime-600 active:bg-lime-700 transition py-3 rounded-3xl"
       >
-        Checkout
+        {{ isCreatingOrder ? 'Creating order' : 'Checkout' }}
       </button>
     </div>
   </div>

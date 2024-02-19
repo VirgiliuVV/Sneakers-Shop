@@ -8,13 +8,14 @@ const onClickRemove = (item) => removeFromCart(item)
 </script>
 
 <template>
-  <div class="flex-col flex gap-4 justify-between">
+  <div class="flex-col flex gap-4 justify-between" v-auto-animate>
     <CartItem
       v-for="item in cart"
       :key="item.id"
       :price="item.price"
       :title="item.title"
       :image-url="item.imageUrl"
+      :is-favorite="item.isFavorite"
       @on-click-remove="onClickRemove(item)"
     />
   </div>
