@@ -14,7 +14,7 @@ const onClickRemove = (item) => removeFromCart(item)
       :key="item.id"
       :price="item.price"
       :title="item.title"
-      :image-url="item.imageUrl"
+      :image-url="item.image_url"
       :is-favorite="item.isFavorite"
       @on-click-remove="onClickRemove(item)"
     />

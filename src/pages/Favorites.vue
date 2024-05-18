@@ -13,10 +13,10 @@ const addToCart = (item) => {
 
 onMounted(async () => {
   try {
-    const { data } = await axios.get(
-      'https://81281dbfb5873512.mokky.dev/favorites?_relations=items'
+    const { data } = await axios.get(import.meta.env.VITE_API_URL+
+      '/favorites?_relations=items'
     )
-    favorites.value = data.map((favorite) => favorite.item)
+    favorites.value = data
   } catch (error) {
     console.log(error)
   }

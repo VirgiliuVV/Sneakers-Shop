@@ -25,12 +25,12 @@ const addToFavorites = async (item) => {
         item_id: item.id
       }
       item.isFavorite = true
-      const { data } = await axios.post('https://81281dbfb5873512.mokky.dev/favorites', obj)
+      const { data } = await axios.post(import.meta.env.VITE_API_URL+'/favorites', obj)
 
       item.favoriteId = data.id
     } else {
       item.isFavorite = false
-      await axios.delete(`https://81281dbfb5873512.mokky.dev/favorites/${item.favoriteId}`)
+      await axios.delete(import.meta.env.VITE_API_URL+`/favorites/${item.favoriteId}`)
       item.favoriteId = null
     }
   } catch (error) {
@@ -64,10 +64,11 @@ const fetchItems = async () => {
       sortBy: filters.sortBy
     }
     if (filters.searchQuery) {
-      params.title = `*${filters.searchQuery}*`
+      params.title = `${filters.searchQuery}`
     }
-    const { data } = await axios.get(`https://81281dbfb5873512.mokky.dev/items`, { params })
+    const { data } = await axios.get(import.meta.env.VITE_API_URL+`/items`, { params })
     // Initialize props.items.value if it's not already initialized
+    console.log(data)
     props.items.value = data.map((item) => ({
       ...item,
       isAdded: false,
@@ -81,9 +82,9 @@ const fetchItems = async () => {
 
 const fetchFavorites = async () => {
   try {
-    const { data: favorites } = await axios.get('https://81281dbfb5873512.mokky.dev/favorites')
+    const { data: favorites } = await axios.get(import.meta.env.VITE_API_URL+'/favorites')
     if (!props.items.value) {
-      props.items.value = [] // Initialize if not already initialized
+      props.items.value = []
     }
     props.items.value = props.items.value.map((item) => {
       const isFavorite = favorites.find((favorite) => favorite.item_id === item.id)
